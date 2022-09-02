@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: PersistentVolume # tipo de recurso
+metadata:
+  name: pv-portal-noticias
+  labels:
+    type: local # será usado pelo pcv 
+spec: # especificações do volume 
+  storageClassName: manual
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteOnce # leitura e gravação montado apenas para um único nó 
+  hostPath: #path do monut file dentro do cluster 
+    path: "/mnt/data"

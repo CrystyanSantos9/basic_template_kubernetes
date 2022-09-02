@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Pod 
+metadata: 
+  name: pod-segundo-volume
+spec:
+  containers:
+    - name : nginx-container
+      image: nginx:latest
+      volumeMounts: # aqui fazemos o bind do host file com o container file
+        - mountPath: /volume-dentro-do-container
+          name: segundo-volume
+    - name : jenkins-container
+      image: jenkins/jenkins
+      volumeMounts:
+        - mountPath: /volume-dentro-do-container #path dentro dos containers
+          name: segundo-volume #nosso volume 
+  volumes:
+    - name: segundo-volume
+      hostPath:
+        path: /home/segundo-volume
+        type: DirectoryOrCreate #cria volume dinamicamente
+ 

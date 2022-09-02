@@ -1,0 +1,3 @@
+#!/bin/bash
+nodeInternalIp=  kubectl get nodes -o wide | col6 
+nodeInternalIp=  kubectl get svc -o wide | col1 printf && kubectl get svc -o wide | col5

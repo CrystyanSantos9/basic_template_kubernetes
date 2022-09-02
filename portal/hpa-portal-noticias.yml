@@ -1,0 +1,18 @@
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: hpa-portal-noticias
+spec:
+  scaleTargetRef: # seleciono o meu deploy
+    apiVersion: apps/v1 #defino a api usada no deploy
+    kind: Deployment #defino o tipo de serviço = deploy, mas poderia ser Service
+    name: portal-noticias-deployment # informo de qual deploy se trata
+  minReplicas: 1 #mínimo de replicas 
+  maxReplicas: 10 #nunca passar
+  metrics: # seleção das métricas
+  - type: Resource #selecionado o que validar 
+    resource:
+      name: cpu
+      target:
+        type: Utilization # tipo de métrica
+        averageUtilization: 50 # quanto de utilização em % do que definimos em resources no arquivo de deploy ou seja 50% de 10m CPU

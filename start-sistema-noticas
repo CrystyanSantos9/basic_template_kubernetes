@@ -1,0 +1,14 @@
+#!/bin/bash
+ ( kubectl apply -f $(pwd)/sistema-noticias.yml && kubectl apply -f $(pwd)/svc-sistema-noticias.yml 2>&1 1>&3 | sed 's/^/STDERR: /' >&2 ) 3>&1
+# (history 2>&1 1>&3 | sed 's/^/STDERR: /' >&2) 3>&1
+# exit_code= echo $?
+exit_code=$?
+
+if [ $exit_code -eq 0 ]; then
+    kubectl get all && echo "IP do Node" && kubectl get nodes -o wide 
+fi
+
+if [ $exit_code -ne 0 ]; then
+    echo "Something got wrong! Verify your script."
+    exit 1
+fi
